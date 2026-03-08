@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo-lab
+    ports:
+      - "27017:27017"
+    volumes:
+      - .docker/data/mongo:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express-lab
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+
+volumes:
+  chroma_data:
