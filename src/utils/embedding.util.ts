@@ -8,7 +8,7 @@ const genAI = GEMINI_API_KEY
 	: null;
 
 export class EmbeddingUtil {
-	static readonly MODEL_NAME = 'text-embedding-004';
+	static readonly MODEL_NAME = 'gemini-embedding-001';
 
 	static async generateEmbedding(
 		text: string,
