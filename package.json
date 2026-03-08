@@ -4,7 +4,7 @@
     "private": true,
     "main": "dist/server.js",
     "scripts": {
-        "build": "tsc -p tsconfig.build.json",
+        "build": "npm i && tsc -p tsconfig.build.json",
         "start": "node --max-old-space-size=8192 dist/server.js",
         "dev": "ts-node-dev --max-old-space-size=8192 --respawn --transpile-only --ignore-watch node_modules src/server.ts",
         "watch": "nodemon --watch src --ext ts --exec \"ts-node src/server.ts\"",
