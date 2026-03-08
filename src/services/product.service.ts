@@ -285,6 +285,54 @@ export class ProductService {
 		return cart;
 	}
 
+	static async removeFromCart(
+		userId: string,
+		productId: string,
+		{ size, color }: { size?: string; color?: string } = {},
+	) {
+		const cart = await CartModel.findOne({ user_id: userId });
+		if (!cart) return { success: false, message: 'Cart not found' };
+
+		cart.items = cart.items.filter(
+			(item) =>
+				!(
+					item.product_id.toString() === productId &&
+					item.size === (size || '') &&
+					item.color === (color || '')
+				),
+		) as any;
+
+		await cart.save();
+		return { success: true, message: 'Removed from cart' };
+	}
+
+	static async updateCartItem(
+		userId: string,
+		productId: string,
+		{ size, color, quantity }: { size?: string; color?: string; quantity: number },
+	) {
+		const cart = await CartModel.findOne({ user_id: userId });
+		if (!cart) return { success: false, message: 'Cart not found' };
+
+		const item = cart.items.find(
+			(item) =>
+				item.product_id.toString() === productId &&
+				item.size === (size || '') &&
+				item.color === (color || ''),
+		);
+
+		if (!item) return { success: false, message: 'Item not found in cart' };
+
+		if (quantity <= 0) {
+			cart.items = cart.items.filter((i) => i !== item) as any;
+		} else {
+			item.quantity = quantity;
+		}
+
+		await cart.save();
+		return { success: true, message: 'Cart updated' };
+	}
+
 	static async recomputeEmbeddings(
 		options: {
 			force?: boolean;

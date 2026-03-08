@@ -68,6 +68,16 @@ router.get(
 	authenticate,
 	asyncHandler(productController.getCart),
 );
+router.delete(
+	'/cart/:productId',
+	authenticate,
+	asyncHandler(productController.removeFromCart),
+);
+router.patch(
+	'/cart/:productId',
+	authenticate,
+	asyncHandler(productController.updateCartItem),
+);
 
 router.post(
 	'/recompute-embeddings',

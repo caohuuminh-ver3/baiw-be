@@ -196,6 +196,47 @@ class ProductController {
 		}).send(res, next);
 	};
 
+	removeFromCart = async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) => {
+		const userId = (req as any).user?.userId;
+		const { productId } = req.params;
+		const { size, color } = req.body || {};
+
+		const result = await ProductService.removeFromCart(userId, productId, {
+			size,
+			color,
+		});
+
+		return new OK({
+			message: result.message,
+			data: { success: result.success },
+		}).send(res, next);
+	};
+
+	updateCartItem = async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) => {
+		const userId = (req as any).user?.userId;
+		const { productId } = req.params;
+		const { size, color, quantity } = req.body;
+
+		const result = await ProductService.updateCartItem(userId, productId, {
+			size,
+			color,
+			quantity,
+		});
+
+		return new OK({
+			message: result.message,
+			data: { success: result.success },
+		}).send(res, next);
+	};
+
 	recomputeEmbeddings = async (
 		req: Request,
 		res: Response,
