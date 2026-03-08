@@ -8,6 +8,9 @@
     "exclude": [
         "**/*.spec.ts",
         "node_modules",
-        "src/**/*.test.ts"
+        "src/**/*.test.ts",
+        "src/services/course.service.ts",
+        "src/controllers/course.controller.ts",
+        "src/routers/course/**"
     ]
 }
